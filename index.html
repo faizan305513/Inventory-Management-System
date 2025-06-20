@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory Dashboard</title>
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+    <header class="main-header" style="background: #2c3e50; color: white; padding: 20px;">
+    <h1 style="margin-bottom: 5px;">Inventory Management System</h1>
+    <!-- <p style="opacity: 0.9;">Overview & Insights of Your Inventory</p> -->
+    <nav style="margin-top: 15px;">
+      <a href="index.html">Dashboard</a>
+      <a href="products.html">Products</a>
+      <a href="add-product.html">Add Product</a>
+      <a href="reports.html">Reports</a>
+     <a href="lowproducts.html">Low Stock</a>
+    </nav>
+  </header>
+
+    <section class="dashboard-cards">
+        <div class="card">
+            <h3>📦 Total Products</h3>
+            <p id="total-products">0</p>
+        </div>
+        <div class="card">
+            <h3>📊 Total Quantity</h3>
+            <p id="total-quantity">0</p>
+        </div>
+        <div class="card">
+            <h3>💰 Total Inventory Value</h3>
+            <p id="total-value">0</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>🕒 Recent Products</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody id="recent-products">
+                <!-- Will be filled dynamically -->
+            </tbody>
+        </table>
+    </section>
+
+    <script src="./js/db.js"></script>
+    <!-- <script>
+        // Load summary and recent products
+        document.addEventListener("DOMContentLoaded", function () {
+            const txn = db.transaction(["products"], "readonly");
+            const store = txn.objectStore("products");
+            const request = store.getAll();
+
+            request.onsuccess = function (e) {
+                const products = e.target.result;
+
+                // Summary
+                document.getElementById("total-products").textContent = products.length;
+                const totalQty = products.reduce((sum, p) => sum + (p.quantity || 0), 0);
+                const totalVal = products.reduce((sum, p) => sum + ((p.quantity || 0) * (p.price || 0)), 0);
+                document.getElementById("total-quantity").textContent = totalQty;
+                document.getElementById("total-value").textContent = "Rs " + totalVal.toFixed(2);
+
+                // Recent products (latest 5)
+                const recent = products.slice(-5).reverse();
+                const tbody = document.getElementById("recent-products");
+                recent.forEach(product => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${product.id}</td>
+                        <td>${product.name}</td>
+                        <td>${product.quantity}</td>
+                        <td>${product.price}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            };
+        });
+    </script> -->
+<script>
+  function loadDashboardData() {
+    const txn = db.transaction(["products"], "readonly");
+    const store = txn.objectStore("products");
+    const request = store.getAll();
+
+    request.onsuccess = function (e) {
+      const products = e.target.result;
+
+      // Summary
+      document.getElementById("total-products").textContent = products.length;
+      const totalQty = products.reduce((sum, p) => sum + (p.quantity || 0), 0);
+      const totalVal = products.reduce((sum, p) => sum + ((p.quantity || 0) * (p.price || 0)), 0);
+      document.getElementById("total-quantity").textContent = totalQty;
+      document.getElementById("total-value").textContent = "Rs " + totalVal.toFixed(2);
+
+      // Recent products
+      const recent = products.slice(-5).reverse();
+      const tbody = document.getElementById("recent-products");
+      recent.forEach(product => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${product.id}</td>
+          <td>${product.name}</td>
+          <td>${product.quantity}</td>
+          <td>${product.price}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    };
+  }
+
+  // Wait for DB to initialize before running
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      if (db) {
+        loadDashboardData();
+      } else {
+        document.addEventListener("db-ready", loadDashboardData);
+      }
+    });
+  } else {
+    if (db) {
+      loadDashboardData();
+    } else {
+      document.addEventListener("db-ready", loadDashboardData);
+    }
+  }
+</script>
+
+</body>
+</html>

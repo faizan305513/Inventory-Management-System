@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+   <header class="main-header" style="background: #2c3e50; color: white; padding: 20px;">
+    <h1 style="margin-bottom: 5px;">Products</h1>
+    <p style="opacity: 0.9;">Products Overview</p>
+    <nav style="margin-top: 15px;">
+      <a href="index.html">Dashboard</a>
+      <a href="products.html">Products</a>
+      <a href="add-product.html">Add Product</a>
+      <a href="reports.html">Reports</a>
+      <a href="lowproducts.html">Low Stock</a>
+    </nav>
+  </header>
+
+    <section>
+        <h2>All Products</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <!-- <th>Actions</th> -->
+                </tr>
+            </thead>
+            <tbody id="low-product-list"></tbody>
+        </table>
+    </section>
+     <script src="./js/main.js"></script>
+    <script src="./js/db.js"></script>
+</body>
+</html>

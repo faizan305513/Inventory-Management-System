@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reports</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <header class="main-header" style="background: #2c3e50; color: white; padding: 20px;">
+    <h1 style="margin-bottom: 5px;">Inventory Reports</h1>
+    <p style="opacity: 0.9;">Overview & Insights of Your Inventory</p>
+    <nav style="margin-top: 15px;">
+      <a href="index.html">Dashboard</a>
+      <a href="products.html">Products</a>
+      <a href="add-product.html">Add Product</a>
+      <a href="reports.html">Reports</a>
+    <a href="lowproducts.html">Low Stock</a>
+    </nav>
+  </header>
+
+
+  <section class="dashboard-cards" style="display: flex; flex-wrap: wrap; gap: 20px; margin: 20px 0;">
+    <div class="card">
+      <h3>📦 Total Products</h3>
+      <p id="report-total-products">0</p>
+    </div>
+    <div class="card">
+      <h3>📊 Total Quantity</h3>
+      <p id="report-total-quantity">0</p>
+    </div>
+    <div class="card">
+      <h3>💰 Total Value</h3>
+      <p id="report-total-value">0</p>
+    </div>
+    <div class="card">
+      <h3>📈 Avg Price</h3>
+      <p id="report-avg-price">0</p>
+    </div>
+    <div class="card">
+      <h3>🔝 Highest Price</h3>
+      <p id="report-high-price">0</p>
+    </div>
+    <div class="card">
+      <h3>🔻 Lowest Price</h3>
+      <p id="report-low-price">0</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>📋 Full Inventory Report</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total Value</th>
+        </tr>
+      </thead>
+      <tbody id="report-table-body"></tbody>
+    </table>
+  </section>
+
+ <script src="./js/main.js"></script>
+    <script src="./js/db.js"></script>
+</body>
+</html>
